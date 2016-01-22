@@ -2,6 +2,7 @@
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -21,7 +22,7 @@ import javax.swing.JButton;
  */
 public class VentanaAhorcado extends javax.swing.JFrame {
 
-    String palabraOculta = "CETYS";
+    String palabraOculta;
     //contador para saber el número de fallos
     int numeroFallos = 0;
     /**
@@ -31,11 +32,43 @@ public class VentanaAhorcado extends javax.swing.JFrame {
         initComponents();
         //Aquí va el código que poniamos en el run en ACM
         cambiaImagenAhorcado();
+        
+        eligePalabraOculta();
+        textoInicial();
+        
     }
 
+    
+    private void eligePalabraOculta(){
+        String [] listaDePalabras = new String [10];
+        Random r = new Random();
+         
+        listaDePalabras [0] = "RATON";
+        listaDePalabras [1] = "PERRO";
+        listaDePalabras [2] = "ORDENADOR";
+        listaDePalabras [3] = "MONITOR";
+        listaDePalabras [4] = "TECLADO";
+        listaDePalabras [5] = "UNO";
+        listaDePalabras [6] = "CHAQUETA";
+        listaDePalabras [7] = "AHORCADO";
+        listaDePalabras [8] = "COMMIT";
+        listaDePalabras [9] = "CETYS";
+        
+       
+        palabraOculta = listaDePalabras[r.nextInt(9)];
+        
+    }
+    
+    private void textoInicial(){
+        jLabel1.setText("");
+        for (int i=0; i<palabraOculta.length(); i++){
+                jLabel1.setText(jLabel1.getText()+"_ ");
+                }
+    }
     private void cambiaImagenAhorcado (){
         
         String nombreImagen = "";
+        //String [] listapalabras = new String [10];
         
         switch (numeroFallos){
                 case 0: nombreImagen = "/ahorcado_0.png"; break;
