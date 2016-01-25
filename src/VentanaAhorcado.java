@@ -1,12 +1,13 @@
 
-import java.awt.Graphics;
 import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -22,7 +23,7 @@ import javax.swing.JButton;
  */
 public class VentanaAhorcado extends javax.swing.JFrame {
 
-    String palabraOculta;
+    String palabraOculta = "";
     //contador para saber el número de fallos
     int numeroFallos = 0;
     /**
@@ -39,23 +40,64 @@ public class VentanaAhorcado extends javax.swing.JFrame {
 
     
     private void eligePalabraOculta(){
-        String [] listaDePalabras = new String [10];
+        
+        //Método básico de lectura de ficheros en Java.
+        File fichero = null;
+        FileReader fr = null;
+        BufferedReader br= null;
         Random r = new Random();
-         
-        listaDePalabras [0] = "RATON";
-        listaDePalabras [1] = "PERRO";
-        listaDePalabras [2] = "ORDENADOR";
-        listaDePalabras [3] = "MONITOR";
-        listaDePalabras [4] = "TECLADO";
-        listaDePalabras [5] = "UNO";
-        listaDePalabras [6] = "CHAQUETA";
-        listaDePalabras [7] = "AHORCADO";
-        listaDePalabras [8] = "COMMIT";
-        listaDePalabras [9] = "CETYS";
+        fichero = new File ("src/lemario-20101017.txt");
+        String linea = "";
+        try {
+            fr = new FileReader(fichero);
+            br = new BufferedReader(fr);
+            
+            int numeroLineasFichero = 0;
+            while ( (linea = br.readLine()) != null ){
+                numeroLineasFichero++;
+
+            }
+            
+            int lineaSeleccionada = r.nextInt(numeroLineasFichero);
+           
+            fr.close();
+            fr = new FileReader(fichero);
+            br = new BufferedReader(fr);
+           
+            for (int i=0; i<lineaSeleccionada; i++){
+                linea = br.readLine();
+                
+            }
+           
+        } catch (FileNotFoundException ex) {
+           
+        }
+          catch (IOException ex) {
+           
+          }
+        palabraOculta = linea;
         
-       
-        palabraOculta = listaDePalabras[r.nextInt(9)];
+        //Falta revisar las palabras con tilde o con guión
+        //Falta revisar palabras con espacios en blanco
+        //Falta escribir la palabra si has perdido
         
+//        String [] listaDePalabras = new String [10];
+//        //Random r = new Random();
+//         
+//        listaDePalabras [0] = "RATON";
+//        listaDePalabras [1] = "PERRO";
+//        listaDePalabras [2] = "ORDENADOR";
+//        listaDePalabras [3] = "MONITOR";
+//        listaDePalabras [4] = "TECLADO";
+//        listaDePalabras [5] = "UNO";
+//        listaDePalabras [6] = "CHAQUETA";
+//        listaDePalabras [7] = "AHORCADO";
+//        listaDePalabras [8] = "COMMIT";
+//        listaDePalabras [9] = "CETYS";
+//        
+//       
+//        palabraOculta = listaDePalabras[r.nextInt(9)];
+//        
     }
     
     private void textoInicial(){
@@ -93,7 +135,7 @@ public class VentanaAhorcado extends javax.swing.JFrame {
     private void chequeaLetra (JButton boton){
         if (boton.isEnabled()){
             
-        String letra = boton.getText();
+        String letra = boton.getText().toLowerCase();
         
         boton.setEnabled(false);
 //System.out.println(boton.getText());
