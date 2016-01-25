@@ -32,7 +32,6 @@ public class VentanaAhorcado extends javax.swing.JFrame {
         initComponents();
         //Aquí va el código que poniamos en el run en ACM
         cambiaImagenAhorcado();
-        
         eligePalabraOculta();
         textoInicial();
         
